@@ -30,12 +30,12 @@ class Home extends React.Component {
                 <input
                   className="outline-none text-sm flex-grow text-gray-500 w-5/6"
                   type="text"
-                  placeholder="abcd"
+                  placeholder="bbc"
                 />
               </div>
             </div>
             <div className={""}>
-              <button onClick={this.result}></button>
+              <button onClick={this.result}>hello</button>
             </div>
           </div>
         </div>
