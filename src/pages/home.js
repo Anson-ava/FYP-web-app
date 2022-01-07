@@ -6,7 +6,7 @@ class Home extends React.Component {
       <>
         <div className="m-4 bg-gray-400 h-96 rounded-md flex items-center">
           <div className={"grid grid-cols-1 grid-rows-2 w-full"}>
-            <div className={"text-4xl text-blue-900 font-black"}>abcd</div>
+            <div className={"text-4xl text-blue-900 font-black"}>aa</div>
             <div className={"flex justify-center"}>
               <div
                 className={"p-4 bg-white rounded-lg flex items-center w-1/2"}
@@ -30,12 +30,12 @@ class Home extends React.Component {
                 <input
                   className="outline-none text-sm flex-grow text-gray-500 w-5/6"
                   type="text"
-                  placeholder="bbc"
+                  placeholder="bb"
                 />
               </div>
             </div>
             <div className={""}>
-              <button onClick={this.result}>hello</button>
+              <button onClick={this.result}>ccd</button>
             </div>
           </div>
         </div>
