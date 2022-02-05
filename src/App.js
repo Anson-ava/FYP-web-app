@@ -18,67 +18,100 @@
 // export default App;
 
 import React, { useRef, useEffect, useState } from "react";
+import TopBar from "./component/topBar";
 
 function App() {
-  const videoRef = useRef(null);
-  const photoRef = useRef(null);
+	const videoRef = useRef(null);
+	const photoRef = useRef(null);
 
-  const [hasPhoto, setHasPhoto] = useState(false);
+	const [hasStream, setHasStream] = useState(true);
+	const [hasPhoto, setHasPhoto] = useState(false);
 
-  const getVideo = () => {
-    navigator.mediaDevices
-      .getUserMedia({
-        video: { width: 1280, height: 720 },
-      })
-      .then((stream) => {
-        let video = videoRef.current;
-        video.srcObject = stream;
-        video.play();
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+	const getVideo = () => {
+		navigator.mediaDevices
+			.getUserMedia({
+				video: { width: 1280, height: 720 },
+			})
+			.then((stream) => {
+				let video = videoRef.current;
+				video.srcObject = stream;
+				video.play();
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+		setHasStream(true);
+	};
 
-  const takePhoto = () => {
-    const width = 414;
-    const height = width / (16 / 9);
+	const stopVideo = () => {
+		if (hasStream) {
+			let video = videoRef.current;
+			let stream = video.srcObject;
+			let tracks = stream.getTracks();
 
-    let video = videoRef.current;
-    let photo = photoRef.current;
+			tracks.forEach(function (track) {
+				track.stop();
+			});
 
-    photo.width = width;
-    photo.height = height;
+			video.srcObject = null;
+			setHasStream(false);
+		}
+	};
 
-    let ctx = photo.getContext("2d");
-    ctx.drawImage(video, 0, 0, width, height);
-  };
+	const takePhoto = () => {
+		const width = 420;
+		const height = width / (16 / 9);
 
-  const closePhoto = () => {
-    let photo = photoRef.current;
-    let ctx = photo.getContext("2d");
+		let video = videoRef.current;
+		let photo = photoRef.current;
 
-    ctx.clearRect(0, 0, photo.width, photo.height);
+		photo.width = width;
+		photo.height = height;
 
-    setHasPhoto(false);
-  };
+		let ctx = photo.getContext("2d");
+		ctx.drawImage(video, 0, 0, width, height);
+	};
 
-  useEffect(() => {
-    getVideo();
-  }, [videoRef]);
+	const closePhoto = () => {
+		let photo = photoRef.current;
+		let ctx = photo.getContext("2d");
 
-  return (
-    <div className="App">
-      <div className="Camera">
-        <video ref={videoRef}></video>
-        <button onClick={takePhoto}>拍照</button>
-      </div>
-      <div className={"result" + (hasPhoto ? "hasPhoto" : "")}>
-        <canvas ref={photoRef}></canvas>
-        <button onClick={closePhoto}>關閉</button>
-      </div>
-    </div>
-  );
+		ctx.clearRect(0, 0, photo.width, photo.height);
+
+		setHasPhoto(false);
+	};
+
+	useEffect(() => {
+		getVideo();
+	}, [videoRef]);
+
+	return (
+		<div className="App">
+			<TopBar />
+			<div className="Camera">
+				<div className="grid grid-cols-2">
+					<button className="col-auto" onClick={getVideo}>
+						Stream
+					</button>
+					<button className="col-auto" onClick={stopVideo}>
+						Stop
+					</button>
+				</div>
+				<video ref={videoRef}></video>
+				<div className="grid grid-cols-2">
+					<button className="col-auto" onClick={takePhoto}>
+						拍照
+					</button>
+					<button className="col-auto" onClick={closePhoto}>
+						關閉
+					</button>
+				</div>
+			</div>
+			<div className={"result" + (hasPhoto ? "hasPhoto" : "")}>
+				<canvas ref={photoRef}></canvas>
+			</div>
+		</div>
+	);
 }
 
 export default App;

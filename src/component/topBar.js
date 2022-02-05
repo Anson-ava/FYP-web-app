@@ -1,17 +1,17 @@
 const TopBar = () => {
-  return (
-    <header>
-      <nav class="p-6">
-        <div class="flex justify-between items-center">
-          <h1 class="pr-6 border-r-2 text-2xl font-bold text-blue-500">
-            3D Object Detection
-          </h1>
-          <div class="flex justify-end flex-grow">
-            {/* <div class="flex ml-6 items-center">
+	return (
+		<header>
+			<nav className="p-6">
+				<div className="flex justify-between items-center">
+					<h1 className="pr-6 border-r-2 text-2xl font-bold text-blue-500">
+						3D Object Detection
+					</h1>
+					<div className="flex justify-end flex-grow">
+						{/* <div className="flex ml-6 items-center">
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 mr-4 cursor-pointer text-gray-500"
+                  className="h-5 w-5 mr-4 cursor-pointer text-gray-500"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -25,22 +25,22 @@ const TopBar = () => {
                 </svg>
               </span>
               <input
-                class="outline-none text-sm flex-grow bg-gray-100"
+                className="outline-none text-sm flex-grow bg-gray-100"
                 type="text"
                 placeholder="Search saunas in Finland…"
               />
             </div> */}
-            <div class="md:flex space-x-12 hidden">
-              <span class="text-gray-500 text-md">Home</span>
-              <span class="text-gray-500 text-md">Control</span>
-              <span class="text-gray-500 text-md">Setting</span>
-              <span class="text-red-500 text-md">關於我們 </span>
-            </div>
-          </div>
-        </div>
-      </nav>
-    </header>
-  );
+						<div className="md:flex space-x-12 hidden">
+							<span className="text-gray-500 text-md">Home</span>
+							<span className="text-gray-500 text-md">Control</span>
+							<span className="text-gray-500 text-md">Setting</span>
+							<span className="text-red-500 text-md">關於我們 </span>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</header>
+	);
 };
 
 export default TopBar;
