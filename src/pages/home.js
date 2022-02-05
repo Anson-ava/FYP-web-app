@@ -4,7 +4,7 @@ class Home extends React.Component {
   render() {
     return (
       <>
-        <div className="m-4 bg-gray-400 h-96 rounded-md flex items-center">
+        <div className="m-0 bg-gray-400 h-96 flex items-center">
           <div className={"grid grid-cols-1 grid-rows-2 w-full"}>
             <div className={"text-4xl text-blue-900 font-black"}>aa</div>
             <div className={"flex justify-center"}>
@@ -45,3 +45,5 @@ class Home extends React.Component {
 }
 
 export default Home;
+
+// import React from "react";
