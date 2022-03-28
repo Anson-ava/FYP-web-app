@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
 import TopBar from "./TorBar";
-import Home from "./pages/Home";
-import Camera from "./pages/Camera";
-import Service from "./pages/Service";
+import Home from "./pages/home";
+import Camera from "./pages/camera";
+import Service from "./pages/service";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/camera" element={<Camera />} />
-        <Route path="/Service" element={<Service />} />
+        <Route path="/service" element={<Service />} />
       </Routes>
     </Router>
   );

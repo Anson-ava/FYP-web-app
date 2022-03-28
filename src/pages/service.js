@@ -26,27 +26,26 @@ function Service() {
     setSelectedFile(e.target.files[0]);
   };
 
-  //   const onFileUpload = e => {
-  //     setShowSpinner(true);
-  //     const formData = new FormData();
-  //     formData.append("file", selectedFile, selectedFile.name);
-  //     fetch(, {
-  //       method: "POST",
-  //       body: formData,
-  //     })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //         setUploadSuccessful(!uploadSuccessful);
-  //         setShowSpinner(false);
-  //   });
-  // };
-  // useEffect(() => {
-  //   fetch()
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setAllPhotos(data);
-  //     });
-  // }, [uploadSuccessful]);
+  const onFileUpload = (e) => {
+    setShowSpinner(true);
+    const formData = new FormData();
+    formData.append("file", selectedFile, selectedFile.name);
+    fetch("http://0.0.0.0:8000/service/uploadfile/", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.blob())
+      .then((blob) => {
+        const imageObjectURL = URL.createObjectURL(blob);
+        setAllPhotos([{
+          key: imageObjectURL.split('blob:http://localhost:3000/'),
+          photo_url: imageObjectURL
+        }]);
+        console.log(allPhotos);
+        setUploadSuccessful(!uploadSuccessful);
+        setShowSpinner(false);
+      });
+  };
 
   return (
     <ChakraProvider>
@@ -60,7 +59,7 @@ function Service() {
               size="lg"
               colorScheme="blue"
               isDisabled={null}
-              onClick={null}
+              onClick={onFileUpload}
             >
               Upload Photo
             </Button>
