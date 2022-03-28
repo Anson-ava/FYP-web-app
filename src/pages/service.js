@@ -23,29 +23,35 @@ function Service() {
 
   const onInputChange = (e) => {
     setIsSelected(true);
-    setSelectedFile(e.target.files[0]);
+    setSelectedFile(e.target.files);
   };
 
   const onFileUpload = (e) => {
     setShowSpinner(true);
-    const formData = new FormData();
-    formData.append("file", selectedFile, selectedFile.name);
-    fetch("http://0.0.0.0:8000/service/uploadfile/", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.blob())
-      .then((blob) => {
-        const imageObjectURL = URL.createObjectURL(blob);
-        setAllPhotos([{
-          key: imageObjectURL.split('blob:http://localhost:3000/'),
-          photo_url: imageObjectURL
-        }]);
-        console.log(allPhotos);
-        setUploadSuccessful(!uploadSuccessful);
-        setShowSpinner(false);
-      });
+    for (var i = 0; i < selectedFile.length; i++) {
+      const formData = new FormData();
+      formData.append("file", selectedFile[i], selectedFile[i].name);
+      fetch("http://0.0.0.0:8000/service/uploadfile/", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.blob())
+        .then((blob) => {
+          const imageObjectURL = URL.createObjectURL(blob);
+          setAllPhotos(allPhotos => [
+            ...allPhotos,
+            {
+              key: imageObjectURL.split("blob:http://localhost:3000/")[1],
+              photo_url: imageObjectURL,
+            },
+          ]);
+          setUploadSuccessful(!uploadSuccessful);
+          setShowSpinner(false);
+        });
+    }
   };
+
+  useEffect(() => console.log(allPhotos), [allPhotos]);
 
   return (
     <ChakraProvider>
@@ -54,7 +60,12 @@ function Service() {
           <Heading>Your photo can be upload here</Heading>
           <Text>Your images are listed here</Text>
           <HStack>
-            <input type="file" onChange={onInputChange} onClick={null}></input>
+            <input
+              type="file"
+              onChange={onInputChange}
+              onClick={null}
+              multiple
+            ></input>
             <Button
               size="lg"
               colorScheme="blue"
