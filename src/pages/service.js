@@ -20,6 +20,7 @@ function Service() {
   const [isSelected, setIsSelected] = useState(false);
   const [uploadSuccessful, setUploadSuccessful] = useState(false);
   const [showSpinner, setShowSpinner] = useState(false);
+  const [oldPhotos, setOldPhotos] = useState();
 
   const onInputChange = (e) => {
     setIsSelected(true);
@@ -38,27 +39,43 @@ function Service() {
         .then((response) => response.blob())
         .then((blob) => {
           const imageObjectURL = URL.createObjectURL(blob);
-          setAllPhotos(allPhotos => [
-            ...allPhotos,
-            {
-              key: imageObjectURL.split("blob:http://localhost:3000/")[1],
-              photo_url: imageObjectURL,
-            },
-          ]);
+          setAllPhotos(
+            (existingPhotos) => [
+              ...existingPhotos,
+              {
+                key: imageObjectURL.split("blob:http://localhost:3000/")[1],
+                photo_url: imageObjectURL,
+              },
+            ],
+            []
+          );
           setUploadSuccessful(!uploadSuccessful);
           setShowSpinner(false);
         });
     }
   };
 
-  useEffect(() => console.log(allPhotos), [allPhotos]);
+  // useEffect(() => console.log(allPhotos), [allPhotos]);
+  useEffect(() => {
+    fetch("http://0.0.0.0:8000/service/getPhotosNumber", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setOldPhotos((photosNumber) => (photosNumber = data.photos_number));
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, [allPhotos]);
 
   return (
     <ChakraProvider>
       <Center bg="grey" color="white" padding={8}>
         <VStack spacing={7}>
-          <Heading>Your photo can be upload here</Heading>
+          <Heading>Your photo can be uploaded here</Heading>
           <Text>Your images are listed here</Text>
+          <Text>You already detected {oldPhotos} photos</Text>
           <HStack>
             <input
               type="file"
@@ -80,13 +97,14 @@ function Service() {
               </Center>
             )}
           </HStack>
-          <Heading> Your photos show here</Heading>
+          <Heading>Your photos show here</Heading>
           <SimpleGrid columns={3} spacing={8}>
             {allPhotos.map((photo) => {
               return (
                 <Image
                   borderRadius={25}
                   boxSize="300px"
+                  key={photo["key"]}
                   src={photo["photo_url"]}
                   fallbackSrc="https://via.placeholder.com/150"
                   objectFit="cover"
