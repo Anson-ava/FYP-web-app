@@ -17,58 +17,79 @@ import {
 function Service() {
   const [allPhotos, setAllPhotos] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [isSelected, setIsSelected] = useState(false);
   const [uploadSuccessful, setUploadSuccessful] = useState(false);
   const [showSpinner, setShowSpinner] = useState(false);
   const [oldPhotos, setOldPhotos] = useState();
 
   const onInputChange = (e) => {
-    setIsSelected(true);
     setSelectedFile(e.target.files);
   };
 
   const onFileUpload = (e) => {
-    setShowSpinner(true);
-    for (var i = 0; i < selectedFile.length; i++) {
-      const formData = new FormData();
-      formData.append("file", selectedFile[i], selectedFile[i].name);
-      fetch("http://0.0.0.0:8000/service/uploadfile/", {
+
+    async function uploadFile(formData){
+      let res = await fetch("http://0.0.0.0:8000/service/uploadfile/", {
         method: "POST",
         body: formData,
       })
-        .then((response) => response.blob())
-        .then((blob) => {
-          const imageObjectURL = URL.createObjectURL(blob);
-          setAllPhotos(
-            (existingPhotos) => [
-              ...existingPhotos,
-              {
-                key: imageObjectURL.split("blob:http://localhost:3000/")[1],
-                photo_url: imageObjectURL,
-              },
-            ],
-            []
-          );
-          setUploadSuccessful(!uploadSuccessful);
-          setShowSpinner(false);
-        });
+      let blob = await res.blob();
+      createObjectURL(blob);
+      setUploadSuccessful(!uploadSuccessful);
+      setShowSpinner(false);
+    }
+
+    setShowSpinner(true);
+    for (var i = 0; i < selectedFile.length; i++) {
+      setOldPhotos((photosNumber) => photosNumber + 1);
+      const formData = new FormData();
+      formData.append("file", selectedFile[i], selectedFile[i].name);
+      uploadFile(formData)
     }
   };
-
-  // useEffect(() => console.log(allPhotos), [allPhotos]);
+  
   useEffect(() => {
-    fetch("http://0.0.0.0:8000/service/getPhotosNumber", {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setOldPhotos((photosNumber) => (photosNumber = data.photos_number));
-      })
-      .catch((e) => {
-        console.error(e);
-      });
-  }, [allPhotos]);
+    
+    async function getPhotosNumber() {
+      let res = await fetch(
+        "http://0.0.0.0:8000/service/getPhotosNumber/",
+        { method: "GET" }
+        );
+        let data = await res.json();
+      var photosNumber = data.photos_number;
+      setOldPhotos(photosNumber);
+      for (var i = 1; i <= photosNumber; i++) {
+        await getOldPhotos(i);
+      }
+    }
 
+    async function getOldPhotos(i) {
+      let res = await fetch(
+        "http://0.0.0.0:8000/service/getOldPhotos/" + i,
+        {
+          mehtod: "GET",
+        }
+        );
+        let blob = await res.blob();
+        createObjectURL(blob);
+      }
+
+      getPhotosNumber();
+    }, []);
+
+    function createObjectURL(blob) {
+      const imageObjectURL = URL.createObjectURL(blob);
+      setAllPhotos(
+        (existingPhotos) => [
+          ...existingPhotos,
+          {
+            key: imageObjectURL.split("blob:http://localhost:3000/")[1],
+            photo_url: imageObjectURL,
+          },
+        ],
+        []
+      );
+    }
+    
   return (
     <ChakraProvider>
       <Center bg="grey" color="white" padding={8}>
