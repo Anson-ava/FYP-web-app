@@ -5,11 +5,11 @@ function Camera() {
   const photoRef = useRef(null);
 
   const [hasStream, setHasStream] = useState(false);
-  const [photoURL, setPhotoURL] = useState(null);
-  const [hasPhoto, setHasPhoto] = useState(false);
-  const [photo, setPhoto] = useState();
+  const [detectFlag, setDetectFlag] = useState(false);
+  const [cameraImgURL, setCameraImgURL] = useState(null);
+  const [resPhoto, setResPhoto] = useState();
 
-  const getVideo = () => {
+  const getCamera = () => {
     navigator.mediaDevices
       .getUserMedia({
         video: { width: 1280, height: 720 },
@@ -25,7 +25,7 @@ function Camera() {
     setHasStream(true);
   };
 
-  const stopVideo = () => {
+  const stopCamera = () => {
     if (hasStream) {
       let video = videoRef.current;
       let stream = video.srcObject;
@@ -40,61 +40,31 @@ function Camera() {
     }
   };
 
-  const takePhoto = () => {
+  const takeCameraImg = () => {
     const width = 420;
     const height = width / (16 / 9);
 
     let video = videoRef.current;
-    let photo = photoRef.current;
+    let cameraImg = photoRef.current;
 
-    photo.width = width;
-    photo.height = height;
+    cameraImg.width = width;
+    cameraImg.height = height;
 
-    let ctx = photo.getContext("2d");
+    let ctx = cameraImg.getContext("2d");
     ctx.drawImage(video, 0, 0, width, height);
-    setPhotoURL(photo.toDataURL());
+    setCameraImgURL(cameraImg.toDataURL());
   };
 
-  const closePhoto = () => {
-    let photo = photoRef.current;
-    let ctx = photo.getContext("2d");
-
-    ctx.clearRect(0, 0, photo.width, photo.height);
-    setHasPhoto(false);
+  const stopDetection = () => {
+    let cameraImg = photoRef.current;
+    let ctx = cameraImg.getContext("2d");
+    ctx.clearRect(0, 0, cameraImg.width, cameraImg.height);
+    setDetectFlag(false);
   };
 
-  const onCameraUpload = (e) => {
-    setHasPhoto(true);
-    // const interval = setInterval(() => {
-    //   if(hasPhoto)
-    //     uploadCamera();
-    // }, 1000)
-    // return () => clearInterval(interval)
-
-    // async function uploadCamera() {
-    //   console.log("a");
-    //   let res = await fetch("http://0.0.0.0:8000/camera/uploadcamera/", {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //       camera: photoURL,
-    //     }),
-    //   });
-    //   let blob = await res.blob();
-    //   let url = URL.createObjectURL(blob);
-    //   setPhoto(url);
-    // }
+  const startDetection = () => {
+    setDetectFlag(true);
   };
-
-  useEffect(() => {
-    getVideo();
-    const interval = setInterval(() => {
-      takePhoto();
-    }, 500);
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     async function uploadCamera() {
@@ -105,45 +75,47 @@ function Camera() {
         cache: "no-cache",
         method: "POST",
         body: JSON.stringify({
-          camera: photoURL,
+          camera: cameraImgURL,
         }),
       });
       let blob = await res.blob();
       let url = URL.createObjectURL(blob);
-      setPhoto(url);
+      setResPhoto(url);
     }
 
     const interval = setInterval(() => {
-      if(hasPhoto){
-        uploadCamera()
+      takeCameraImg();
+      if (detectFlag) {
+        uploadCamera();
       }
-    }, 500);
+    }, 1000);
     return () => clearInterval(interval);
-  })
+  });
 
   return (
     <div className="App">
       <div className="Camera">
         <div className="grid grid-cols-2">
-          <button className="col-auto" onClick={getVideo}>
+          <button className="col-auto" onClick={getCamera}>
             Stream
           </button>
-          <button className="col-auto" onClick={stopVideo}>
+          <button className="col-auto" onClick={stopCamera}>
             Stop
           </button>
         </div>
         <video ref={videoRef}></video>
-        <div className="grid grid-cols-2">
-          <button className="col-auto" onClick={onCameraUpload}>
-            Take Photo
+        <div className={hasStream ? "grid grid-cols-2" : "hidden"}>
+          <button className="col-auto" onClick={startDetection}>
+            Start Detection
           </button>
-          <button className="col-auto" onClick={closePhoto}>
-            Close
+          <button className="col-auto" onClick={stopDetection}>
+            Stop Detection
           </button>
         </div>
       </div>
-      <div>
-        <img src={photo}></img>
+      <div className={resPhoto ? "" : "hidden"}>
+        Detection Result:
+        <img src={resPhoto}></img>
       </div>
       <div hidden>
         <canvas ref={photoRef}></canvas>
