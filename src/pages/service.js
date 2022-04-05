@@ -23,7 +23,6 @@ function Service() {
 
   const onInputChange = (e) => {
     setSelectedFile(e.target.files);
-    console.log(allPhotos);
   };
 
   const onFileUpload = (e) => {
@@ -45,6 +44,8 @@ function Service() {
       formData.append("file", selectedFile[i], selectedFile[i].name);
       uploadFile(formData);
     }
+
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -53,15 +54,15 @@ function Service() {
         method: "GET",
       });
       let data = await res.json();
-      setOldPhotos(data.photos_number);
-      for (var i = 1; i <= data.photos_number; i++) {
+      setOldPhotos((data.photos_number)/2);
+      for (var i = 1; i <= data.photos_number; i=i+2) {
         await getOldPhotos(i);
       }
     }
 
     async function getOldPhotos(i) {
       let res = await fetch("http://0.0.0.0:8000/service/getOldPhotos/" + i, {
-        mehtod: "GET",
+        method: "GET",
         cache: 'no-cache'
       });
       let blob = await res.blob();
@@ -73,6 +74,7 @@ function Service() {
 
   function createObjectURL(blob) {
     const imageObjectURL = URL.createObjectURL(blob);
+    console.log(imageObjectURL.split("blob:http://localhost:3000/")[1]);
     setAllPhotos(
       (allPhotos) => [
         ...allPhotos,
