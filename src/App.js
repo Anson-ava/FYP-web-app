@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import TopBar from "./TorBar";
+import TopBar from "./component/TopBar";
 import Home from "./pages/home";
 import Camera from "./pages/camera";
 import Service from "./pages/service";

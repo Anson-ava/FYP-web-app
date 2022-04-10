@@ -3,16 +3,19 @@ import { NavLink as Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 
 export const Nav = styled.nav`
-  background: #000000;
-  height: 85px;
+  background-color: black;
+  opacity: 0.8;
+  position: sticky;
+  top: 0px;
+  height: 80px;
   display: flex;
-  justfiy-content: flex-start;
+  justify-content: flex-start;
   padding: 0.5rem calc((100vw - 1000px) / 2);
-  z-index: 10;
+  z-index: 1;
 `;
 
 export const NavLink = styled(Link)`
-  color: #fff;
+  color: white;
   display: flex;
   align-items: center;
   padding: 0 1rem;
@@ -26,7 +29,7 @@ export const NavLink = styled(Link)`
 // when the windows too small and did not show all the item
 export const Bars = styled(FaBars)`
   display: none;
-  color: #fff;
+  color: white;
 
   @media screen and (max-width: 768px) {
     display: block;
@@ -64,16 +67,15 @@ export const NavBtn = styled.nav`
 
 export const NavBtnLink = styled(Link)`
   border-radius: 4px;
-  background: #256ce1;
   padding: 10px 22px;
-  color: #fff;
+  color: gray;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
 
   &:hover {
     transition: all 0.2s ease-in-out;
-    background: #fff;
+    background: white;
     color: #010606;
   }
 `;
