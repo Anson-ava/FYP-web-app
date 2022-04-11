@@ -20,7 +20,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "craco start & python CenterNet/src/runServer.py",
+    "start": "craco start",
+    "start-all": "craco start & python CenterNet/src/runServer.py",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
