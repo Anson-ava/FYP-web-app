@@ -24,10 +24,10 @@ const TopBar = () => {
           Photo
         </NavLink>
       </NavMenu>
-      <NavBtn>
+      {/* <NavBtn>
         <NavBtnLink to="/SignUp">Sign Up</NavBtnLink>
         <NavBtnLink to="/SignIn">Sign In</NavBtnLink>
-      </NavBtn>
+      </NavBtn> */}
     </Nav>
   );
 };

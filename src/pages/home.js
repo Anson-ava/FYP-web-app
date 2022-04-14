@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import BannerImage from "../assets/background.jpg";
-import "./Home.css";
+import "./home.css";
 
 class Home extends React.Component {
   render() {

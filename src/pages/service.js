@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { Link as ReachLink } from "react-router-dom";
 import {
   ChakraProvider,
   Container,
@@ -12,6 +12,7 @@ import {
   SimpleGrid,
   Image,
   Spinner,
+  Link,
 } from "@chakra-ui/react";
 
 function Service() {
@@ -50,9 +51,9 @@ function Service() {
     }
   };
 
-  // useEffect(() => {
-  //   getPhotosNumber();
-  // }, [uploadSuccessful]);
+  useEffect(() => {
+    getPhotosNumber();
+  }, [uploadSuccessful]);
 
   function createObjectURL(blob) {
     const imageObjectURL = URL.createObjectURL(blob);
@@ -122,14 +123,16 @@ function Service() {
           <SimpleGrid columns={3} spacing={8}>
             {allPhotos.map((photo) => {
               return (
-                <Image
-                  borderRadius={25}
-                  boxSize="300px"
-                  key={photo["key"]}
-                  src={photo["photo_url"]}
-                  fallbackSrc="https://via.placeholder.com/150"
-                  objectFit="cover"
-                ></Image>
+                <Link as={ReachLink} to='/photo'>
+                  <Image
+                    borderRadius={25}
+                    boxSize="300px"
+                    key={photo["key"]}
+                    src={photo["photo_url"]}
+                    fallbackSrc="https://via.placeholder.com/150"
+                    objectFit="cover"
+                  ></Image>
+                </Link>
               );
             })}
           </SimpleGrid>
