@@ -54,8 +54,8 @@ function Service() {
         method: "GET",
       });
       let data = await res.json();
-      setOldPhotos((data.photos_number)/2);
-      for (var i = 1; i <= data.photos_number; i=i+2) {
+      setOldPhotos(data.photos_number / 2);
+      for (var i = 1; i <= data.photos_number; i = i + 2) {
         await getOldPhotos(i);
       }
     }
@@ -63,13 +63,13 @@ function Service() {
     async function getOldPhotos(i) {
       let res = await fetch("http://0.0.0.0:8000/service/getOldPhotos/" + i, {
         method: "GET",
-        cache: 'no-cache'
+        cache: "no-cache",
       });
       let blob = await res.blob();
       createObjectURL(blob);
     }
 
-    getPhotosNumber();
+    // getPhotosNumber();
   }, []);
 
   function createObjectURL(blob) {
