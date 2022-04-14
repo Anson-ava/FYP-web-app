@@ -11,9 +11,7 @@ import {
 const TopBar = () => {
   return (
     <Nav>
-      <NavLink to="/">
-        3D Object Detection
-      </NavLink>
+      <NavLink to="/">3D Object Detection</NavLink>
       <Bars />
       <NavMenu>
         <NavLink to="/Camera" activeStyle>
@@ -22,8 +20,8 @@ const TopBar = () => {
         <NavLink to="/Service" activeStyle>
           Service
         </NavLink>
-        <NavLink to="/Contact" activeStyle>
-          Contact Us
+        <NavLink to="/photo" activeStyle>
+          Photo
         </NavLink>
       </NavMenu>
       <NavBtn>
