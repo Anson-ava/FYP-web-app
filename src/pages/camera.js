@@ -96,14 +96,25 @@ function Camera() {
     <div className="App">
       <div className="Camera">
         <div className="grid grid-cols-2">
-          <button className="col-auto" onClick={getCamera}>
+          <button
+            className="col-auto"
+            style={{
+              backgroundColor: "green",
+            }}
+            onClick={getCamera}
+          >
             Stream
           </button>
-          <button className="col-auto" onClick={stopCamera}>
+          <button
+            className="col-auto"
+            style={{
+              backgroundColor: "red",
+            }}
+            onClick={stopCamera}
+          >
             Stop
           </button>
         </div>
-        <video ref={videoRef}></video>
         <div className={hasStream ? "grid grid-cols-2" : "hidden"}>
           <button className="col-auto" onClick={startDetection}>
             Start Detection
@@ -112,6 +123,7 @@ function Camera() {
             Stop Detection
           </button>
         </div>
+        <video ref={videoRef}></video>
       </div>
       <div className={resPhoto ? "" : "hidden"}>
         Detection Result:

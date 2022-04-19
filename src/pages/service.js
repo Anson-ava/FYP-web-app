@@ -51,9 +51,9 @@ function Service() {
     }
   };
 
-  useEffect(() => {
-    getPhotosNumber();
-  }, [uploadSuccessful]);
+  // useEffect(() => {
+  //   getPhotosNumber();
+  // }, [uploadSuccessful]);
 
   function createObjectURL(blob) {
     const imageObjectURL = URL.createObjectURL(blob);
@@ -123,7 +123,7 @@ function Service() {
           <SimpleGrid columns={3} spacing={8}>
             {allPhotos.map((photo) => {
               return (
-                <Link as={ReachLink} to='/photo'>
+                <Link as={ReachLink} to="/photo">
                   <Image
                     borderRadius={25}
                     boxSize="300px"

@@ -11,7 +11,9 @@ import {
 const TopBar = () => {
   return (
     <Nav>
-      <NavLink to="/">3D Object Detection</NavLink>
+      <NavLink to="/" style={{ fontSize: 25 }}>
+        3D Object Detection
+      </NavLink>
       <Bars />
       <NavMenu>
         <NavLink to="/Camera" activeStyle>
