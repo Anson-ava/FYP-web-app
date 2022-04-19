@@ -6,16 +6,29 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `uvicorn server:app --reload`
-
-To start backend server, cd to CenterNet/src then run to above code.
-
 ### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
+You will also see any lint errors in the console.
+
+### `npm run start-server`
+
+Runs the app in the development mode.\
+Open [http://localhost:8000](http://localhost:8000) to view API server info in the browser.
+
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
+
+### `npm run start-all`
+
+Runs the app in the development mode and start backend API server.\
+Open [http://localhost:3000](http://localhost:3000) to view the web in the browser.\
+Open [http://localhost:8000](http://localhost:8000) to view API server info in the browser.
+
+The page and server will reload if you make edits.\
 You will also see any lint errors in the console.
 
 ### `npm test`

@@ -25,7 +25,7 @@ function Service() {
 
   const onInputChange = (e) => {
     let files = e.target.files;
-    console.log(files);
+    // console.log(files);
     setSelectedFile(files);
   };
 
@@ -39,29 +39,36 @@ function Service() {
     }
 
     async function uploadFile(formData) {
-      await fetch("http://0.0.0.0:8000/service/uploadfile/", {
+      let res = await fetch("http://0.0.0.0:8000/service/uploadfile/", {
         method: "POST",
         body: formData,
       });
-      // let blob = await res.blob();
+      let blob = await res.blob();
       // console.log(blob);
-      // createObjectURL(blob);
+      createObjectURL(blob);
       setUploadSuccessful(!uploadSuccessful);
       setShowSpinner(false);
     }
   };
 
+<<<<<<< HEAD
   // useEffect(() => {
   //   getPhotosNumber();
   // }, [uploadSuccessful]);
+=======
+  useEffect(() => {
+    getPhotosNumber();
+  }, []);
+>>>>>>> c5e19b407c204d7caa5c2d319d1d0cb27ec4d3f1
 
   function createObjectURL(blob) {
     const imageObjectURL = URL.createObjectURL(blob);
-    console.log(imageObjectURL.split("blob:http://localhost:3000/")[1]);
+    // console.log(imageObjectURL.split("blob:http://localhost:3000/")[1]);
     setAllPhotos(
       (allPhotos) => [
         ...allPhotos,
         {
+          id: allPhotos.length,
           key: imageObjectURL.split("blob:http://localhost:3000/")[1],
           photo_url: imageObjectURL,
         },
@@ -123,10 +130,15 @@ function Service() {
           <SimpleGrid columns={3} spacing={8}>
             {allPhotos.map((photo) => {
               return (
+<<<<<<< HEAD
                 <Link as={ReachLink} to="/photo">
+=======
+                <Link as={ReachLink} to={'/photo/?id='+photo.id}>
+>>>>>>> c5e19b407c204d7caa5c2d319d1d0cb27ec4d3f1
                   <Image
                     borderRadius={25}
                     boxSize="300px"
+                    id={photo["id"]}
                     key={photo["key"]}
                     src={photo["photo_url"]}
                     fallbackSrc="https://via.placeholder.com/150"

@@ -23,6 +23,7 @@
   },
   "scripts": {
     "start": "craco start",
+    "start-server": "python CenterNet/src/runServer.py",
     "start-all": "craco start & python CenterNet/src/runServer.py",
     "build": "craco build",
     "test": "craco test",

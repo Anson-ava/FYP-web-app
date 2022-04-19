@@ -16,15 +16,15 @@ const TopBar = () => {
       </NavLink>
       <Bars />
       <NavMenu>
-        <NavLink to="/Camera" activeStyle>
+        <NavLink to="/camera" activeStyle>
           Camera
         </NavLink>
-        <NavLink to="/Service" activeStyle>
+        <NavLink to="/service" activeStyle>
           Service
         </NavLink>
-        <NavLink to="/photo" activeStyle>
+        {/* <NavLink to="/photo" activeStyle>
           Photo
-        </NavLink>
+        </NavLink> */}
       </NavMenu>
       {/* <NavBtn>
         <NavBtnLink to="/SignUp">Sign Up</NavBtnLink>
