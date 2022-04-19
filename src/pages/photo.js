@@ -2,36 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./photo.css";
 import CloseIcon from "@material-ui/icons/Close";
 
-import img1 from "../assets/Activity1.jpeg";
-import img2 from "../assets/Activity2.png";
-import img3 from "../assets/Activity3.jpeg";
-import img4 from "../assets/Activity4.jpeg";
 import { useSearchParams } from "react-router-dom";
-import { log } from "@craco/craco/lib/logger";
 
 function Photo() {
-  // const photo = () => {
   const [searchParam, setSearchParam] = useSearchParams();
   const [allPhotos, setAllPhotos] = useState([]);
   searchParam.get("id");
-  // let data = [
-  //   {
-  //     id: 1,
-  //     imgSrc: img1,
-  //   },
-  //   {
-  //     id: 2,
-  //     imgSrc: img2,
-  //   },
-  //   {
-  //     id: 3,
-  //     imgSrc: img3,
-  //   },
-  //   {
-  //     id: 4,
-  //     imgSrc: img4,
-  //   },
-  // ];
   const [model, setModel] = useState(false);
   const [tempimgSrc, setTempImgSrc] = useState("");
 

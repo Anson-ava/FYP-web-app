@@ -51,15 +51,9 @@ function Service() {
     }
   };
 
-<<<<<<< HEAD
-  // useEffect(() => {
-  //   getPhotosNumber();
-  // }, [uploadSuccessful]);
-=======
   useEffect(() => {
     getPhotosNumber();
   }, []);
->>>>>>> c5e19b407c204d7caa5c2d319d1d0cb27ec4d3f1
 
   function createObjectURL(blob) {
     const imageObjectURL = URL.createObjectURL(blob);
@@ -130,11 +124,7 @@ function Service() {
           <SimpleGrid columns={3} spacing={8}>
             {allPhotos.map((photo) => {
               return (
-<<<<<<< HEAD
-                <Link as={ReachLink} to="/photo">
-=======
                 <Link as={ReachLink} to={'/photo/?id='+photo.id}>
->>>>>>> c5e19b407c204d7caa5c2d319d1d0cb27ec4d3f1
                   <Image
                     borderRadius={25}
                     boxSize="300px"
