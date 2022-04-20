@@ -99,21 +99,15 @@ function Camera() {
         <button className="stream" onClick={getCamera}>
           Stream
         </button>
-        <button
-          className="col-auto"
-          style={{
-            backgroundColor: "red",
-          }}
-          onClick={stopCamera}
-        >
+        <button className="stop" onClick={stopCamera}>
           Stop
         </button>
 
         <div className={hasStream ? "grid grid-cols-2" : "hidden"}>
-          <button className="col-auto" onClick={startDetection}>
+          <button className="startdetect" onClick={startDetection}>
             Start Detection
           </button>
-          <button className="col-auto" onClick={stopDetection}>
+          <button className="stopdetect" onClick={stopDetection}>
             Stop Detection
           </button>
         </div>
