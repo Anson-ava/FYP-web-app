@@ -96,26 +96,19 @@ function Camera() {
   return (
     <div className="App">
       <div className="Camera">
-        <div className="grid grid-cols-2">
-          <button
-            className="col-auto"
-            style={{
-              backgroundColor: "green",
-            }}
-            onClick={getCamera}
-          >
-            Stream
-          </button>
-          <button
-            className="col-auto"
-            style={{
-              backgroundColor: "red",
-            }}
-            onClick={stopCamera}
-          >
-            Stop
-          </button>
-        </div>
+        <button className="stream" onClick={getCamera}>
+          Stream
+        </button>
+        <button
+          className="col-auto"
+          style={{
+            backgroundColor: "red",
+          }}
+          onClick={stopCamera}
+        >
+          Stop
+        </button>
+
         <div className={hasStream ? "grid grid-cols-2" : "hidden"}>
           <button className="col-auto" onClick={startDetection}>
             Start Detection
