@@ -12,6 +12,8 @@
   padding: 16px 32px;
   text-align: center;
   font-size: 20px;
+  position: absolute;
+  left: 0px;
 }
 
 .stop {
@@ -19,16 +21,35 @@
   border: 1px solid black;
   border-radius: 10px;
   color: black;
-  padding: 16px 40px;
+  padding: 16px 43px;
   text-align: center;
   font-size: 20px;
-  float: right;
+  position: absolute;
+  right: 0px;
 }
 
 .startdetect {
+  background-color: green;
   border: 1px solid black;
+  border-radius: 10px;
+  color: black;
+  padding: 16px 15px;
+  text-align: center;
+  font-size: 20px;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
 }
 
 .stopdetect {
+  background-color: red;
   border: 1px solid black;
+  border-radius: 10px;
+  color: black;
+  padding: 16px 15px;
+  text-align: center;
+  font-size: 20px;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
 }
