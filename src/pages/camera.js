@@ -113,7 +113,7 @@ function Camera() {
         </div>
         <video ref={videoRef}></video>
       </div>
-      <div className={resPhoto ? "" : "hidden"}>
+      <div className={resPhoto ? "detect" : "hidden"}>
         Detection Result:
         <img src={resPhoto}></img>
       </div>
