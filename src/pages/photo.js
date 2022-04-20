@@ -60,12 +60,12 @@ function Photo() {
   }, []);
 
   return (
-    <>
+    <div className="background">
       <div className={model ? "model open" : "model"}>
         <img src={tempimgSrc} />
         <CloseIcon onClick={() => setModel(false)} />
       </div>
-      Click Image to Zoom In
+      <p style={{fontSize: 25}}>Click Image to Zoom In</p>
       <div className="photo">
         {allPhotos.map((item, index) => {
           return (
@@ -81,7 +81,7 @@ function Photo() {
           );
         })}
       </div>
-    </>
+    </div>
   );
 }
 
