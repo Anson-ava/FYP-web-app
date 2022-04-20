@@ -8,7 +8,7 @@ class Home extends React.Component {
     return (
       <div className="home" style={{ backgroundImage: `url(${BannerImage})` }}>
         <div className="headerContainer">
-          <h1> Object Detection </h1>
+          <h1 style={{fontWeight: 'bold'}}> Object Detection </h1>
           <p>Autonomous Driving</p>
           <Link to="/camera">
             <button> Try now </button>

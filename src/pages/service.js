@@ -95,9 +95,7 @@ function Service() {
     <ChakraProvider>
       <Center bg="grey" color="white" padding={8}>
         <VStack spacing={7}>
-          <Heading>Your photo can be uploaded here</Heading>
-          <Text>Your images are listed here</Text>
-          <Text>You already detected {oldPhotos} photos</Text>
+          <Heading>Photo Detection</Heading>
           <HStack>
             <input
               name="fileInput"
@@ -109,6 +107,7 @@ function Service() {
             <Button
               size="lg"
               colorScheme="blue"
+              borderRadius="10px"
               isDisabled={btnDisable}
               onClick={onFileUpload}
             >
@@ -120,7 +119,7 @@ function Service() {
               </Center>
             )}
           </HStack>
-          <Heading>Your photos show here</Heading>
+          <Text style={{fontWeight: 800, fontSize: 20}}>{oldPhotos} photos detected (Click the photo for the detection details)</Text>
           <SimpleGrid columns={3} spacing={8}>
             {allPhotos.map((photo) => {
               return (
