@@ -11,16 +11,16 @@ import {
 const TopBar = () => {
   return (
     <Nav>
-      <NavLink to="/" style={{ fontSize: 25 }}>
+      <NavLink to="/" style={{ fontSize: 30 }}>
         3D Object Detection
       </NavLink>
       <Bars />
       <NavMenu>
         <NavLink to="/camera" activeStyle>
-          Camera
+          Real-Time Detection
         </NavLink>
         <NavLink to="/service" activeStyle>
-          Service
+          Photo Detection
         </NavLink>
         {/* <NavLink to="/photo" activeStyle>
           Photo
