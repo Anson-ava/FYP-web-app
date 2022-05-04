@@ -53,7 +53,7 @@ function Service() {
 
   useEffect(() => {
     getPhotosNumber();
-  }, [uploadSuccessful]);
+  }, []);
 
   function createObjectURL(blob) {
     const imageObjectURL = URL.createObjectURL(blob);

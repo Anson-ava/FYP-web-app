@@ -88,6 +88,7 @@ function Camera() {
       takeCameraImg();
       if (detectFlag) {
         uploadCamera();
+        window.scrollTo(0, document.body.scrollHeight);
       }
     }, 1000);
     return () => clearInterval(interval);
@@ -107,7 +108,7 @@ function Camera() {
           <button className="startdetect" onClick={startDetection}>
             Start Detection
           </button>
-          <button className="stopdetect" onClick={stopDetection}>
+          <button className={detectFlag ? "stopdetect" : "hidden"} onClick={stopDetection}>
             Stop Detection
           </button>
         </div>
